@@ -10,20 +10,6 @@
           <include name="tearDown"/>
         </methods>
       </class> <!-- TestCase.TC_008 -->
-      <class name="TestCase.TC_002">
-        <methods>
-          <include name="setUp"/>
-          <include name="verifyCommunication"/>
-          <include name="tearDown"/>
-        </methods>
-      </class> <!-- TestCase.TC_002 -->
-      <class name="TestCase.TC_005">
-        <methods>
-          <include name="verifyChoosefarmersDropdown"/>
-          <include name="setUp"/>
-          <include name="tearDown"/>
-        </methods>
-      </class> <!-- TestCase.TC_005 -->
       <class name="TestCase.TC_007">
         <methods>
           <include name="verifyOrgstrcture"/>

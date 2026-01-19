@@ -1,8 +1,12 @@
 package TestCase;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import AllPom.Organisation;
@@ -17,6 +21,8 @@ public class TC_007 extends Base {
 		Organisation or= new Organisation(driver);
 
 		or.orgnsationClick();
+		By OrgStrutureLocator = By.xpath("//a[text()='Organization Structure']");
+		WebDriverUtils.scrollToElement(driver, OrgStrutureLocator, 2000);
 		or.orgstructure();
 		or.addresorce();
 		or.osfirstname("rajesh");
@@ -32,9 +38,12 @@ public class TC_007 extends Base {
 		WebDriverUtils.scrollToElement(driver, registerButtonLocator, 2000);
 
 		or.osconfirm_password("123456789");
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebElement radioButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("bod-check")));
+		radioButton.click();
 		or.osbodcheck();
         
-		
 		By submitButtonLocator = By.xpath("//button[text()='Register Company Member']");
 		WebDriverUtils.scrollToElement(driver, submitButtonLocator, 2000);
 		or.oscategory("Open / General");
@@ -48,12 +57,8 @@ public class TC_007 extends Base {
 		or.oslandbelongstothebOD("yes");
 		or.osotherinfo("N/a");
 
-		
 		or.manageagencies();
-		
-		
-		
+				
 	}
-
 
 }

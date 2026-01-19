@@ -1,10 +1,15 @@
 package TestCase;
 
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.Status;
 
 import AllPom.Organisation;
 import basePkg.Base;
@@ -13,7 +18,7 @@ public class TC_006 extends Base {
 
 
 	@Test
-	public void verifyprofile() throws InterruptedException {
+	public void verifyprofile() throws InterruptedException, IOException {
 
 		Organisation or= new Organisation(driver);
 
@@ -26,7 +31,9 @@ public class TC_006 extends Base {
 		or.mobilenumber("9874563210");
 		or.Submit();
 		or.erormssage();
-
+		TC_006 t = new TC_006();
+	
+	
 
 
 

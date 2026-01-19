@@ -1,10 +1,14 @@
 package AllPom;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class Organisation extends PomBase {
@@ -21,7 +25,7 @@ public class Organisation extends PomBase {
 	@FindBy(xpath="//span[text()='Organization']") WebElement Orgnisation;
 	@FindBy(xpath="//a[text()='Company Profile']") WebElement companyprfile;
 	@FindBy(xpath="//a[text()='My Profile']") WebElement myprfile;
-	@FindBy(xpath="//a[text()='Shareholder Management']") WebElement Sharehold;
+	@FindBy(xpath="//a[contains(text(),'Shareholder')]") WebElement Sharehold;
 
 
 
@@ -34,7 +38,7 @@ public class Organisation extends PomBase {
 
     ///////////////
 	
-	
+	@FindBy(xpath=("//input[@type='search']")) WebElement searchacc;
 	@FindBy(xpath=("//a[@onclick='amountAdd(673)']")) WebElement manageacc;
 	@FindBy(xpath=("//input[@id='share_held_add']")) WebElement share_held;
 	@FindBy(xpath=("//input[@id='face_value_add']")) WebElement face_digit;
@@ -61,7 +65,7 @@ public class Organisation extends PomBase {
 	@FindBy(xpath="//input[@id='email']") WebElement osmail;
 	@FindBy(xpath="//input[@id='password']") WebElement ospasword;
 	@FindBy(xpath="//input[@id='confirm_password']") WebElement osconfirm_pasword;
-    @FindBy(xpath="//input[@type='checkbox']") WebElement osbod;
+    @FindBy(xpath="//input[@id='bod-check']") WebElement osbod;
 	
 	@FindBy(xpath="//select[@id='category']") WebElement oscategry;
 	@FindBy(xpath="//option[text()='Open / General']") WebElement osOpenGeneral;
@@ -125,7 +129,7 @@ public class Organisation extends PomBase {
 
 		String actualmessage = errormssage.getText();
 		System.out.println(actualmessage);
-		Assert.assertEquals(actualmessage, "The  has already been taken.");
+		Assert.assertEquals(actualmessage, "The email has already been taken.");
 	}
 
 	/////////////////////////////////
@@ -134,10 +138,18 @@ public class Organisation extends PomBase {
 		Sharehold.click();
 	}
 	
+	public void searchtab(String title ){
+		searchacc.sendKeys(title);
+	}
 	public void srmanageaccount() throws InterruptedException{
 		manageacc.click();
 		
 	}
+//	public void sramountwait () {
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		WebElement amt = wait.until(ExpectedConditions.elementToBeClickable(amount));
+//	    amt.click();
+//	}
 	
 	public void srshare_held_add(String title) throws InterruptedException{
 		share_held.sendKeys(title);;
@@ -149,9 +161,13 @@ public class Organisation extends PomBase {
 		
 	}
 	public void sramount_add() throws InterruptedException{
-		amount.click();;
+		amount.click();
 		
 	}
+	
+	
+	
+	
 	public void srfolio_no(String title) throws InterruptedException{
 		folio.sendKeys(title);
 		
@@ -239,25 +255,53 @@ public class Organisation extends PomBase {
 		
 		osmail.sendKeys(title);
 	}
-	// Method to scroll to an element and optionally wait before interacting
-		public static void scrollToElement(WebDriver driver, By locator, int waitTimeInMillis) {
-			try {
-				// Find the element by locator
-				WebElement element = driver.findElement(locator);
+//	// Method to scroll to an element and optionally wait before interacting
+//		public static void scrollToElement(WebDriver driver, By locator, int waitTimeInMillis) {
+//			try {
+//				// Find the element by locator
+//				WebElement element = driver.findElement(locator);
+//				
+//				  
+//
+//				// Use JavaScriptExecutor to scroll to the element
+//				JavascriptExecutor js = (JavascriptExecutor) driver;
+//				js.executeScript("arguments[0].scrollIntoView(true);", element);
+//
+//				// Wait for a specified amount of time (optional, for observation purposes)
+//				Thread.sleep(waitTimeInMillis);
+//
+//				// Click the element after scrolling
+//
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
-				// Use JavaScriptExecutor to scroll to the element
-				JavascriptExecutor js = (JavascriptExecutor) driver;
-				js.executeScript("arguments[0].scrollIntoView(true);", element);
+	
 
-				// Wait for a specified amount of time (optional, for observation purposes)
-				Thread.sleep(waitTimeInMillis);
 
-				// Click the element after scrolling
+	public static void scrollToElement(WebDriver driver, By locator, int waitTimeInMillis) {
+	    try {
+	        // Create a WebDriverWait instance to wait for the element to be visible
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+	        // Wait for the element to be visible
+	        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+	        // Use JavaScriptExecutor to scroll to the element
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+	        js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+	        // Wait for a specified amount of time (optional, for observation purposes)
+	        Thread.sleep(waitTimeInMillis);
+
+	        // Click the element after scrolling
+	       // element.click(); // You can replace this with any other interaction you need
+
+	    } catch (InterruptedException e) {
+	        e.printStackTrace();
+	    }
+	}
 
 
 	
@@ -277,7 +321,7 @@ public class Organisation extends PomBase {
 	}
 
 	public void osbodcheck() throws InterruptedException {
-
+		
 		
 		osbod.click();
 		// Verify that the radio button is selected
